@@ -7,27 +7,36 @@ namespace CS.Impl._03_Linq
 {
     public class Linq
     {
-        public IEnumerable<string> FindStringsWhichStartsAndEndsWithSpecificCharacter(string startCharacter, string endCharacter, IEnumerable<string> strings)
+        public IEnumerable<string> FindStringsWhichStartsAndEndsWithSpecificCharacter(string startCharacter,
+            string endCharacter, IEnumerable<string> strings)
         {
-            throw new NotImplementedException();
+            return strings.Where(s => s.StartsWith(startCharacter) && s.EndsWith(endCharacter));
         }
 
         public IEnumerable<int> GetGreaterNumbers(int limit, IEnumerable<int> numbers)
         {
-            throw new NotImplementedException();
+            return numbers.Where(n => n >= limit);
         }
 
         public IEnumerable<int> GetTopNRecords(int limit, IEnumerable<int> numbers)
         {
-            throw new NotImplementedException();
+            return numbers.OrderBy(n => n).TakeLast(limit);
         }
 
         public IDictionary<string, int> GetFileCountByExtension(IEnumerable<string> files)
         {
-            throw new NotImplementedException();
+            return files
+                .Select(file => Path.GetExtension(file).TrimStart('.').ToLower())
+                .GroupBy(group => group, (extension, extensionCount)
+                    => new
+                    {
+                        Extension = extension, Count = extensionCount.Count()
+                    }
+                ).ToDictionary(d => d.Extension, d => d.Count);
         }
 
-        public IEnumerable<Tuple<string, string, int, double>> GetFinalReceipe(List<Item> items, List<Client> clients, List<Purchase> purchases)
+        public IEnumerable<Tuple<string, string, int, double>> GetFinalReceipe(List<Item> items, List<Client> clients,
+            List<Purchase> purchases)
         {
             throw new NotImplementedException();
         }

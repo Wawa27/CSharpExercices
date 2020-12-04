@@ -41,35 +41,32 @@ namespace CS.Impl._02_Intermediate
 
         public bool IsPrime(int n)
         {
-            return IsPrime(n, n - 1);
+            return n == 1 || IsPrime(n, 2);
         }
 
         private bool IsPrime(int n, int current)
         {
-            if (current == 1)
-            {
-                return true;
-            }
-
-            return n % current != 0 && IsPrime(n, current - 1);
-        }
-
-        public bool IsPalindrome(string text)
-        {
-            if (text.Length == 1 || text.Length == 0)
+            if (current == n)
             {
                 return true;
             }
             
+            return n % current != 0 && IsPrime(n, current + 1);
+        }
+
+        public bool IsPalindrome(string text)
+        {
+            if (text.Length <= 1)
+            {
+                return true;
+            }
+
             if (text[0] != text[text.Length - 1])
             {
                 return false;
             }
 
-            text = text.Remove(0, 1);
-            text = text.Remove(text.Length - 1, 1);
-
-            return IsPalindrome(text);
+            return IsPalindrome(text.Substring(1, text.Length - 2));
         }
     }
 }
